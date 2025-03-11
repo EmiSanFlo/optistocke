@@ -63,3 +63,40 @@ document.getElementById("facebook-login").addEventListener("click", async () => 
         console.error("Error en autenticación con Facebook:", error);
     }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const googleButton = document.getElementById("google-login");
+    const facebookButton = document.getElementById("facebook-login");
+
+    if (googleButton) {
+        googleButton.addEventListener("click", async () => {
+            const provider = new GoogleAuthProvider();
+            try {
+                const result = await signInWithPopup(auth, provider);
+                console.log("Usuario autenticado con Google:", result.user);
+                window.location.href = "dashboard.html";  // Redirigir después del inicio de sesión
+            } catch (error) {
+                console.error("Error en autenticación con Google:", error);
+                alert(error.message);
+            }
+        });
+    } else {
+        console.error("Botón de Google no encontrado en el DOM.");
+    }
+
+    if (facebookButton) {
+        facebookButton.addEventListener("click", async () => {
+            const provider = new FacebookAuthProvider();
+            try {
+                const result = await signInWithPopup(auth, provider);
+                console.log("Usuario autenticado con Facebook:", result.user);
+                window.location.href = "dashboard.html";  // Redirigir después del inicio de sesión
+            } catch (error) {
+                console.error("Error en autenticación con Facebook:", error);
+                alert(error.message);
+            }
+        });
+    } else {
+        console.error("Botón de Facebook no encontrado en el DOM.");
+    }
+});
